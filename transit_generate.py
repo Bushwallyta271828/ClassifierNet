@@ -4,6 +4,7 @@ from pylab import *
 from numpy import *
 from numpy.random import normal
 from numpy.random import random as uniform
+from compartmentalize import compartmentalize
 
 def generate():
     """
@@ -21,4 +22,6 @@ def generate():
             O[O < 300] = 300
             epsilon = normal(0, 200, (1000,))
             epsilon[-epsilon > O] = 0
-            I = alpha
+            I = alpha * (O + epsilon + beta)
+            partitioning = compartmentalize(I)[0]
+            
