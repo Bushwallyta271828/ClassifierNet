@@ -88,50 +88,75 @@ def generate(transit=default_transit):
     Author: Xander
     This function creates the input, output pairs
     required for the neural net to work. 
+    It takes a transit object and uses
+    that transit object's values constantly.
+    default_transit is a transit object
+    created with all the default values.
     """
-    alpha = normal(0.9, 0.1, (1000,))
+    alpha = normal(transit.generate_alpha_mean,
+                   transit.generate_alpha_std,
+                   (transit.generate_step * transit.generate_points,))
     alpha[alpha > 1] = 1
-    beta = normal(500, 20, (1000,))
+    beta = normal(transit.generate_beta_mean,
+                  transit.generate_beta_std,
+                  (transit.generate_step * transit.generate_points,))
     inpt = []
     outp = []
-    for o in range(5):
-        O = normal(1000, 100, (1000,))
-        O[O < 300] = 300
+    for o in range(transit.generate_stars):
+        O = normal(transit.generate_O_mean,
+                   transit.generate_O_std,
+                   (transit.generate_step * transit.generate_points,))
+        O[O < transit.generate_O_cutoff] = transit.generate_O_cutoff
         if uniform() < 0.5:
             outp += [False]
         else:
-            center = randint(0, 1000)
-            spread = randint(50, 500)
+            center = randint(0, transit.generate_step * transit.generate_points)
+            spread = randint(transit.generate_step // 2,
+                             transit.generate_step * transit.generate_points // 2)
             start = center - spread
             stop = center + spread
-            span = arange(0, 1000)
+            span = arange(0, transit.generate_step * transit.generate_points)
             damped_mask = (span > start)*(span < stop)
-            O[damped_mask] *= 1 - 0.33
-            for x in range(0, 20):
+            O[damped_mask] *= 1 - transit.generate_planet_frac
+            for x in range(0, 2*transit.generate_planet_bordertime):
                 i = start - x
                 if i in span:
-                    O[i] *= 1 - 0.33*(1/pi * arccos((10 - x) / 10)
-                         - (1 / (2*pi)) * (10 - x) * sqrt((20 - x) * x))
-            for x in range(0, 20):
+                    O[i] *= 1
+                          - transit.generate_planet_frac * (1/pi
+                                                          * arccos((transit.generate_planet_bordertime
+                                                                  - x) / transit.generate_planet_bordertime)
+                                                          - (1 / (2*pi))
+                                                          * (transit.generate_planet_bordertime - x)
+                                                          * sqrt((2*transit.generate_planet_bordertime
+                                                                - x) * x))
+            for x in range(0, 2*transit.generate_planet_bordertime):
                 i = stop + x
                 if i in span:
-                    O[i] *= 1 - 0.33*(1/pi * arccos((10 - x) / 10)
-                         - (1 / (2*pi)) * (10 - x) * sqrt((20 - x) * x))
+                    O[i] *= 1
+                          - transit.generate_planet_frac * (1/pi
+                                                          * arccos((transit.generate_planet_bordertime
+                                                                  - x) / transit.generate_planet_bordertime)
+                                                          - (1 / (2*pi))
+                                                          * (transit.generate_planet_bordertime - x)
+                                                          * sqrt((2*transit.generate_planet_bordertime
+                                                                - x) * x))
             outp += [True]
-        epsilon = normal(0, 200, (1000,))
+        epsilon = normal(0,
+                         transit.generate_epsilon_std,
+                         (transit.generate_step * transit.generate_points,))
         epsilon[-epsilon > O] = 0
         I = alpha * (O + epsilon + beta)
         I /= average(I)
         partitioning = compartmentalize(I)[0]
         for num, point in enumerate(partitioning[:-1]):
             next_point = partitioning[num + 1]
-            if (next_point - 1) // 100 > (point - 1) // 100:
+            if (next_point - 1) // transit.generate_step > (point - 1) // transit.generate_step:
                 block = I[point: next_point]
                 maximum, minimum = max(block), min(block)
-                if point % 100 > 0:
-                    start = 100 * (point // 100 + 1)
-                else:  # point % 100 == 0
+                if point % transit.generate_step > 0:
+                    start = transit.generate_step * (point // transit.generate_step + 1)
+                else:  # point % transit.generate_step == 0
                     start = point
-                for i in range(start, next_point, 100):
+                for i in range(start, next_point, transit.generate_step):
                     inpt += [maximum, minimum]
     return (inpt, outp)
