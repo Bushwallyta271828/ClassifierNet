@@ -11,9 +11,9 @@ from pybrain.tools.customxml.networkreader import NetworkReader
 
 default_data_size = 100
 default_interval_size = 20
-default_interval_check = 10000
+default_interval_check = 100
 default_interval_count = 10
-default_check_size = 100000
+default_check_size = 1000
         
 class Trainer:
     def __init__(self,
@@ -23,11 +23,9 @@ class Trainer:
                  interval_count=default_interval_count,
                  check_size=default_check_size):
         """
+        Author: Xander
         This class serves the same purpose as Transit,
         just for the train_network() function.
-        Again, this was David's idea.
-        I had perfectly well working code prior to this
-        change. 
         """
         self.data_size = data_size
         self.interval_size = interval_size
@@ -37,6 +35,7 @@ class Trainer:
     
     def __str__(self):
         """
+        Author: Xander
         This function allows for the printing of Trainer objects.
         """
         desc = "Trainer object:\n"
@@ -51,17 +50,16 @@ default_trainer = Trainer()
     
 def execute(nnet, transit=default_transit):
     """
+    Author: Xander
     execute(nnet, transit) takes a neural net
-    and evaluates it on one randonly selected input, output pair
+    and evaluates it on one randonly selected input, output pair.
     It returns an array containing three items:
         True if nnet correctly classifies the data, and False if not.
         The number of false positives.
         The number of false negatives.
-    David told me to use the all() function.
-    I ended up not doing that because of other things I changed.
     """
     inpt, output = generate(transit=transit)
-    nnet_output = (nnet.activate(inpt) > 0.5)
+    nnet_output = (array(nnet.activate(inpt)) > 0.5)
     false_positives = 0
     false_negatives = 0
     for o in xrange(5):
@@ -69,10 +67,13 @@ def execute(nnet, transit=default_transit):
             false_positives += 1
         elif output[o] and (not nnet_output[o]):
             false_negatives += 1
-    return array([false_positives + false_negatives == 0, false_positives, false_negatives])
+    return array([false_positives + false_negatives == 0,
+                  false_positives,
+                  false_negatives])
 
 def message(net, size, transit=default_transit):
     """
+    Author: Xander
     Given a neural net and the number of transits to test on,
     this function creates a message for the user.
     It alo returns the fraction of the time the neural net is correct.
@@ -90,6 +91,7 @@ def message(net, size, transit=default_transit):
 
 def train_network(net, best_fraction, trainer=default_trainer, transit=default_transit):
     """
+    Author: Xander
     This function performs the common grunt-work of 
     both build_network() and improve_network()
     """
@@ -160,6 +162,7 @@ def build_network(hidden_structure=(500, 100, 10),
                   trainer=default_trainer,
                   transit=default_transit):
     """
+    Author: Xander
     This function creates a neural net capable of detecting exoplanets in lightcurves.
     It writes the network to ../network.xml
     The input must be of the form:
@@ -179,6 +182,7 @@ def build_network(hidden_structure=(500, 100, 10),
         
 def improve_network(trainer=default_trainer, transit=default_transit):
     """
+    Author: Xander
     This function improves an existing neural net capable of detecting exoplanets in lightcurves.
     It writes the network to ../network.xml
     The input must be of the form:
