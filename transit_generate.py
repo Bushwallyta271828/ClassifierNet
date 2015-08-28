@@ -16,7 +16,7 @@ default_generate_beta_std = 20
 default_generate_O_mean = 1000
 default_generate_O_std = 100
 default_generate_O_cutoff = 300
-default_generate_planet_frac = 0.33
+default_generate_planet_frac = 1 #0.33
 default_generate_planet_bordertime = 10
 default_generate_epsilon_std = 200
 
@@ -102,6 +102,7 @@ def generate(transit=default_transit):
                   (transit.generate_step * transit.generate_points,))
     inpt = []
     outp = []
+    Is = []
     for o in range(transit.generate_stars):
         O = normal(transit.generate_O_mean,
                    transit.generate_O_std,
@@ -147,6 +148,7 @@ def generate(transit=default_transit):
         epsilon[-epsilon > O] = 0
         I = alpha * (O + epsilon + beta)
         I /= average(I)
+        Is.append(I)
         partitioning = compartmentalize(I)[0]
         for num, point in enumerate(partitioning[:-1]):
             next_point = partitioning[num + 1]
@@ -159,4 +161,4 @@ def generate(transit=default_transit):
                     start = point
                 for i in range(start, next_point, transit.generate_step):
                     inpt += [maximum, minimum]
-    return (inpt, outp)
+    return (inpt, outp, Is)
