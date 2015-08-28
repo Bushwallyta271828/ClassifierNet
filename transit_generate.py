@@ -59,6 +59,11 @@ class Transit:
     def __str__(self):
         """
         Author: Xander
+        This is the __str__ method of
+        any of my printable classes.
+        It just returns a string containing
+        a nicely human-readable formatting
+        of the values in the transit object.
         """
         msg  = "Transit object:\n"
         msg += "     generate_step              = " + str(self.generate_step) + "\n"
