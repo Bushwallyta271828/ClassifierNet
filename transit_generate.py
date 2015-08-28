@@ -7,10 +7,34 @@ from numpy.random import random as uniform
 from compartmentalize import compartmentalize
 
 default_generate_step = 100
+default_generate_stars = 5
+default_generate_points = 10
+default_generate_alpha_mean = 0.9
+default_generate_alpha_std = 0.1
+default_generate_beta_mean = 500
+default_generate_beta_std = 20
+default_generate_O_mean = 1000
+default_generate_O_std = 100
+default_generate_O_cutoff = 300
+default_generate_planet_frac = 0.33
+default_generate_planet_bordertime = 10
+default_generate_epsilon_std = 200
 
 class Transit:
     def __init__(self,
-                 generate_step=default_generate_step):
+                 generate_step             =default_generate_step,
+                 generate_stars            =default_generate_stars,
+                 generate_points           =default_generate_points,
+                 generate_alpha_mean       =default_generate_alpha_mean,
+                 generate_alpha_std        =default_generate_alpha_std,
+                 generate_beta_mean        =default_generate_beta_mean,
+                 generate_beta_std         =default_generate_beta_std,
+                 generate_O_mean           =default_generate_O_mean,
+                 generate_O_std            =default_generate_O_std,
+                 generate_O_cutoff         =default_generate_O_cutoff,
+                 generate_planet_frac      =default_generate_planet_frac,
+                 generate_planet_bordertime=default_generate_planet_bordertime,
+                 generate_epsilon_std      =default_generate_epsilon_std):
         """
         Author: Xander
         This class stores all
@@ -18,14 +42,43 @@ class Transit:
         arguments for the generate()
         function.
         """
-        self.generate_step = generate_step
+        self.generate_step              = generate_step
+        self.generate_stars             = generate_stars
+        self.generate_points            = generate_points
+        self.generate_alpha_mean        = generate_alpha_mean
+        self.generate_alpha_std         = generate_alpha_std
+        self.generate_beta_mean         = generate_beta_mean
+        self.generate_beta_std          = generate_beta_std
+        self.generate_O_mean            = generate_O_mean
+        self.generate_O_std             = generate_O_std
+        self.generate_O_cutoff          = generate_O_cutoff
+        self.generate_planet_frac       = generate_planet_frac
+        self.generate_planet_bordertime = generate_planet_bordertime
+        self.generate_epsilon_std       = generate_epsilon_std 
         
     def __str__(self):
+        """
+        Author: Xander
+        """
         msg  = "Transit object:\n"
-        msg += "    generate_step = " + str(self.generate_step) + "\n"
+        msg += "     generate_step              = " + str(self.generate_step) + "\n"
+        msg += "     generate_stars             = " + str(self.generate_stars) + "\n"
+        msg += "     generate_points            = " + str(self.generate_points) + "\n"
+        msg += "     generate_alpha_mean        = " + str(self.generate_alpha_mean) + "\n"
+        msg += "     generate_alpha_std         = " + str(self.generate_alpha_std) + "\n"
+        msg += "     generate_beta_mean         = " + str(self.generate_beta_mean) + "\n"
+        msg += "     generate_beta_std          = " + str(self.generate_beta_std) + "\n"
+        msg += "     generate_O_mean            = " + str(self.generate_O_mean) + "\n"
+        msg += "     generate_O_std             = " + str(self.generate_O_std) + "\n"
+        msg += "     generate_O_cutoff          = " + str(self.generate_O_cutoff) + "\n"
+        msg += "     generate_planet_frac       = " + str(self.generate_planet_frac) + "\n"
+        msg += "     generate_planet_bordertime = " + str(self.generate_planet_bordertime) + "\n"
+        msg += "     generate_epsilon_std       = " + str(self.generate_epsilon_std) + "\n"
         return msg
+        
+default_transit = Transit()
 
-def generate():
+def generate(transit=default_transit):
     """
     Author: Xander
     This function creates the input, output pairs
