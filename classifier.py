@@ -71,7 +71,7 @@ def execute(nnet, transit=default_transit):
                   false_positives,
                   false_negatives])
 
-def message(net, size, transit=default_transit):
+def message(net, size, trainer=default_trainer, transit=default_transit):
     """
     Author: Xander
     Given a neural net and the number of transits to test on,
@@ -86,6 +86,10 @@ def message(net, size, transit=default_transit):
     msg += "Of the " + str(false_positives + false_negatives) + " incorrect classifications:\n"
     msg += "    " + str(false_positives) + " were false positives.\n"
     msg += "    " + str(false_negatives) + " were false negatives.\n"
+    msg += "The trainer object used was:\n"
+    msg += trainer.__str__()
+    msg += "The transit object used was:\n"
+    msg += transit.__str__()
     return (msg, 100 * total / size)
 
 
