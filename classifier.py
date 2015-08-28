@@ -9,11 +9,11 @@ from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.customxml.networkwriter import NetworkWriter
 from pybrain.tools.customxml.networkreader import NetworkReader
 
-default_data_size = 100
+default_data_size = 1000
 default_interval_size = 20
-default_interval_check = 100
+default_interval_check = 1000
 default_interval_count = 10
-default_check_size = 1000
+default_check_size = 10000
         
 class Trainer:
     def __init__(self,
@@ -43,7 +43,7 @@ class Trainer:
         desc += "    interval_size = " + str(self.interval_size) + "\n"
         desc += "    interval_check = " + str(self.interval_check) + "\n"
         desc += "    interval_count = " + str(self.interval_count) + "\n"
-        desc += "    check_size = " + str(self.check_size)
+        desc += "    check_size = " + str(self.check_size) + "\n"
         return desc
         
 default_trainer = Trainer()
@@ -175,7 +175,7 @@ def train_network(net,
             f.write(line)
         f.close()
 
-def build_network(hidden_structure=(500, 100, 10),
+def build_network(hidden_structure=(256, 128, 64, 32, 16, 8),
                   trainer=default_trainer,
                   transit=default_transit):
     """
