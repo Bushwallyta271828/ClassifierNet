@@ -20,6 +20,8 @@ default_generate_O_cutoff = 300
 default_generate_planet_frac = 0.33
 default_generate_planet_bordertime = 10
 default_generate_epsilon_std = 200
+default_generate_bin_size = 40
+default_generate_dynamic = False
 
 class Transit:
     def __init__(self,
@@ -36,7 +38,9 @@ class Transit:
                  generate_O_cutoff         =default_generate_O_cutoff,
                  generate_planet_frac      =default_generate_planet_frac,
                  generate_planet_bordertime=default_generate_planet_bordertime,
-                 generate_epsilon_std      =default_generate_epsilon_std):
+                 generate_epsilon_std      =default_generate_epsilon_std,
+                 generate_bin_size         =default_generate_bin_size,
+                 generate_dynamic          =default_generate_dynamic):
         """
         Author: Xander
         This class stores all
@@ -58,6 +62,8 @@ class Transit:
         self.generate_planet_frac       = generate_planet_frac
         self.generate_planet_bordertime = generate_planet_bordertime
         self.generate_epsilon_std       = generate_epsilon_std 
+        self.generate_bin_size          = generate_bin_size
+        self.generate_dynamic           = generate_dynamic
         
     def __str__(self):
         """
@@ -83,6 +89,8 @@ class Transit:
         msg += "     generate_planet_frac       = " + str(self.generate_planet_frac) + "\n"
         msg += "     generate_planet_bordertime = " + str(self.generate_planet_bordertime) + "\n"
         msg += "     generate_epsilon_std       = " + str(self.generate_epsilon_std) + "\n"
+        msg += "     generate_bin_size          = " + str(self.generate_bin_size) + "\n"
+        msg += "     generate_dynamic           = " + str(self.generate_dynamic) + "\n"
         return msg
         
 default_transit = Transit()
@@ -152,7 +160,13 @@ def generate(transit=default_transit):
         epsilon[-epsilon > O] = 0
         I = alpha * (O + epsilon + beta)
         I /= average(I)
-        partitioning = compartmentalize(I, max_length=transit.generate_step)[0]
+        if transit.generate_dynamic:
+            partitioning = compartmentalize(I, max_length=transit.generate_step)[0]
+        else:
+            partitioning = (range(0,
+                                  transit.generate_step * transit.generate_points,
+                                  transit.generate_bin_size)
+                          + [transit.generate_step * transit.generate_points])
         for num, point in enumerate(partitioning[:-1]):
             next_point = partitioning[num + 1]
             if (next_point - 1) // transit.generate_step > (point - 1) // transit.generate_step:
