@@ -152,7 +152,7 @@ def generate(transit=default_transit):
         epsilon[-epsilon > O] = 0
         I = alpha * (O + epsilon + beta)
         I /= average(I)
-        partitioning = compartmentalize(I)[0]
+        partitioning = compartmentalize(I, max_length=transit.generate_step)[0]
         for num, point in enumerate(partitioning[:-1]):
             next_point = partitioning[num + 1]
             if (next_point - 1) // transit.generate_step > (point - 1) // transit.generate_step:
