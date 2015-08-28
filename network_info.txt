@@ -1,0 +1,29 @@
+11.77% of the test data was correctly classified.
+Of the 17113 incorrect classifications:
+    7157 were false positives.
+    9956 were false negatives.
+The trainer object used was:
+Trainer object:
+    data_size = 1000
+    interval_size = 20
+    interval_check = 1000
+    interval_count = 10
+    check_size = 10000
+The transit object used was:
+Transit object:
+     generate_step              = 100
+     generate_stars             = 5
+     generate_points            = 10
+     generate_alpha_mean        = 0.9
+     generate_alpha_std         = 0.1
+     generate_beta_mean         = 500
+     generate_beta_std          = 20
+     generate_O_mean_mean       = 1000
+     generate_O_mean_std        = 100
+     generate_O_std             = 100
+     generate_O_cutoff          = 300
+     generate_planet_frac       = 0.33
+     generate_planet_bordertime = 10
+     generate_epsilon_std       = 200
+     generate_bin_size          = 40
+     generate_dynamic           = False
