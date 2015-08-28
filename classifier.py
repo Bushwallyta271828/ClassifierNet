@@ -181,18 +181,16 @@ def build_network(hidden_structure=(500, 100, 10),
     """
     Author: Xander
     This function creates a neural net capable of detecting exoplanets in lightcurves.
-    It writes the network to ../network.xml
-    The input must be of the form:
-        (star1_intensity(0), star1_intensity(1), ..., star1_intensity(9),
-         star2_intensity(0), star2_intensity(1), ..., star2_intensity(9),
-         ...)
-    The output should be of the form:
-        (star1_has_exoplanet, star2_has_exoplanet, ...)
+    It writes the network to network.xml
+    The input, output pairs should be of the 
+    format generate() generates them in.
     A good rule-of-thumb for telling whether the network detects an exoplanet
     is to see if the output is above 0.5.
     """
     print "Building network..."
-    hidden_structure = (50,) + hidden_structure + (5,)
+    hidden_structure = ((2*transit.generate_stars*transit.generate_points,)
+                      + hidden_structure
+                      + (transit.generate_stars,))
     net = buildNetwork(*hidden_structure, bias=True)
     best_fraction = 0
     train_network(net, best_fraction, trainer=trainer, transit=transit)
@@ -200,21 +198,18 @@ def build_network(hidden_structure=(500, 100, 10),
 def improve_network(trainer=default_trainer, transit=default_transit):
     """
     Author: Xander
-    This function improves an existing neural net capable of detecting exoplanets in lightcurves.
-    It writes the network to ../network.xml
-    The input must be of the form:
-        (star1_intensity(0), star1_intensity(1), ..., star1_intensity(9),
-         star2_intensity(0), star2_intensity(1), ..., star2_intensity(9),
-         ...)
-    The output should be of the form:
-        (star1_has_exoplanet, star2_has_exoplanet, ...)
+    This function improves an existing neural net
+    capable of detecting exoplanets in lightcurves.
+    It writes the network to network.xml
+    The input, output pairs should be of the 
+    format generate() generates them in.
     A good rule-of-thumb for telling whether the network detects an exoplanet
     is to see if the output is above 0.5.
     """
     print "Retreiving network..."
-    net = NetworkReader.readFrom("../network.xml")
+    net = NetworkReader.readFrom("network.xml")
     print "Retreiving current performance..."
-    f = open("../network_info.txt")
+    f = open("network_info.txt")
     first_line = f.readlines()[0]
     best_fraction = float(first_line.split("%")[0])
     f.close()
