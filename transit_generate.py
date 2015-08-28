@@ -24,4 +24,6 @@ def generate():
             epsilon[-epsilon > O] = 0
             I = alpha * (O + epsilon + beta)
             partitioning = compartmentalize(I)[0]
-            
+            for num, point in enumerate(partitioning[:-1]):
+                next_point = partitioning[num + 1]
+                if 
