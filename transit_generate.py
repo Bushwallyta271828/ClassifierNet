@@ -23,6 +23,7 @@ def generate():
             epsilon = normal(0, 200, (1000,))
             epsilon[-epsilon > O] = 0
             I = alpha * (O + epsilon + beta)
+            I /= average(I)
             partitioning = compartmentalize(I)[0]
             for num, point in enumerate(partitioning[:-1]):
                 next_point = partitioning[num + 1]
@@ -59,6 +60,7 @@ def generate():
             epsilon = normal(0, 200, (1000,))
             epsilon[-epsilon > O] = 0
             I = alpha * (O + epsilon + beta)
+            I /= average(I)
             partitioning = compartmentalize(I)[0]
             for num, point in enumerate(partitioning[:-1]):
                 next_point = partitioning[num + 1]
@@ -71,6 +73,5 @@ def generate():
                         start = point
                     for i in range(start, next_point, 100):
                         inpt += [maximum, minimum]
-            outp += [False]
-            
-print generate()
+            outp += [True]
+    return (inpt, outp)
