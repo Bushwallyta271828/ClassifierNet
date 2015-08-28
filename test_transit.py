@@ -10,13 +10,11 @@ def visualize_one():
     Author: Xander
     """
     colors = ["b", "g", "r", "c", "m"]
-    data, out, Is = generate()
-    for j in range(1):
+    data, out = generate()
+    for j in range(5):
         for i in range(10):
             plot([100*i + 5*j, 100*i + 5*j], [data[20*j + 2*i], data[20*j + 2*i + 1]], colors[j], linewidth=5)
-    for j in range(1):
-        I = Is[j]
-        plot(I, colors[j])
+    ylim(ymin=0)
     show()
     print out
     
