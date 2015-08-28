@@ -1,72 +1,18 @@
 from __future__ import division
 from pylab import *
+from numpy import *
+from transit_generate import *
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.customxml.networkwriter import NetworkWriter
 from pybrain.tools.customxml.networkreader import NetworkReader
 
-default_error = 0.075
-default_transit_strength = 0.33
-default_gamma_const_mean = 1.5
-default_gamma_const_std = 0.5
-default_gamma_const_cutoff = 1
-default_zeta_mean = 0.95
-default_zeta_std = 0.025
-default_alpha_mean = 0.5
-default_alpha_std = 0.025
-
 default_data_size = 100
 default_interval_size = 20
 default_interval_check = 10000
 default_interval_count = 10
 default_check_size = 100000
-
-class Transit:
-    def __init__(self,
-                 error=default_error,
-                 transit_strength=default_transit_strength,
-                 gamma_const_mean=default_gamma_const_mean,
-                 gamma_const_std=default_gamma_const_std,
-                 gamma_const_cutoff=default_gamma_const_cutoff,
-                 zeta_mean=default_zeta_mean,
-                 zeta_std=default_zeta_std,
-                 alpha_mean=default_alpha_mean,
-                 alpha_std=default_alpha_std):
-        """
-        This function provides a substitute for stupidly
-        long keyword argument lists preceding each function.
-        An instance of this class completely specifies
-        how generate() should construct a transit.
-        This was David's idea - I had stupidly long 
-        keyword lists before that worked perfectly well.
-        """
-        self.error = error
-        self.transit_strength = transit_strength
-        self.gamma_const_mean = gamma_const_mean
-        self.gamma_const_std = gamma_const_std
-        self.gamma_const_cutoff = gamma_const_cutoff
-        self.zeta_mean = zeta_mean
-        self.zeta_std = zeta_std
-        self.alpha_mean = alpha_mean
-        self.alpha_std = alpha_std
-        
-    def __str__(self):
-        """
-        This functions allows for the printing of a Transit object.
-        """
-        desc = "Transit object:\n"
-        desc += "    error = " + str(self.error) + "\n"
-        desc += "    transit_strength = " + str(self.transit_strength) + "\n"
-        desc += "    gamma_const_mean = " + str(self.gamma_const_mean) + "\n"
-        desc += "    gamma_const_std = " + str(self.gamma_const_std) + "\n"
-        desc += "    gamma_const_cutoff = " + str(self.gamma_const_cutoff) + "\n"
-        desc += "    zeta_mean = " + str(self.zeta_mean) + "\n"
-        desc += "    zeta_std = " + str(self.zeta_std) + "\n"
-        desc += "    alpha_mean = " + str(self.alpha_mean) + "\n"
-        desc += "    alpha_std = " + str(self.alpha_std)
-        return desc
-        
         
 class Trainer:
     def __init__(self,
@@ -100,58 +46,7 @@ class Trainer:
         desc += "    check_size = " + str(self.check_size)
         return desc
         
-default_transit = Transit()
 default_trainer = Trainer()
-
-def generate(transit=default_transit):
-    """
-    This function creates a mock exoplanet transit.
-    It returns a tuple of (input, output), where input and output are in turn tuples.
-    The input is of the form:
-        (star1_intensity(0), star1_intensity(1), ..., star1_intensity(9),
-         star2_intensity(0), star2_intensity(1), ..., star2_intensity(9),
-         ...)
-    The output is of the format:
-        (star1_has_exoplanet, star2_has_exoplanet, ...)
-    David helped me "numpy" the code - I had previously written an identical version in pure python.
-    It takes as an optinal input a Transit instance. 
-    """
-    zeta = normal(transit.zeta_mean, transit.zeta_std, 10)
-    alpha = normal(transit.alpha_mean, transit.alpha_std, 10)
-    inpt = []
-    output = randint(0, 2, 5)
-    for o in xrange(5):
-        gamma_const = max(transit.gamma_const_cutoff,
-                          normal(transit.gamma_const_mean, transit.gamma_const_std))
-        if output[o]:
-            start = randint(-1, 10)
-            stop = randint(start + 1, start + 6)
-            gamma = array([gamma_const
-                        * (1-transit.transit_strength)**(start <= n <= stop) for n in xrange(10)])
-        else:
-            gamma = [gamma_const]*10
-        epsilon = normal(0, transit.error, 10)
-        xi = gamma + epsilon
-        O = zeta * (xi + alpha) #What would be observed.
-        O /= average(O)
-        inpt += list(O)
-    to_in = tuple(inpt)
-    return (to_in, tuple(output))
-
-def visualize(transit=default_transit):
-    """
-    visualize() takes the output of generate and plots the intensities as a graph.
-    It also prints the output.
-    This is not used in the program.
-    The purpose of visualize() is to check that generate() creates reasonable data.
-    """
-    inpt, output = generate(transit=transit)
-    print output
-    for o in xrange(5):
-        plot(inpt[10*o: 10*o + 10])
-    ymin, ymax = ylim()
-    ylim(0, ymax)
-    show()
     
 def execute(nnet, transit=default_transit):
     """
