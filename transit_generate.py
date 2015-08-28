@@ -39,12 +39,12 @@ def generate():
         else:
             O = normal(1000, 100, (1000,))
             O[O < 300] = 300
-            center = uniform(0, 1000)
-            spread = uniform(50, 500)
+            center = randint(0, 1000)
+            spread = randint(50, 500)
             start = center - spread
             stop = center + spread
             span = arange(0, 1000)
-            damped_mask = (span > start) and (span < stop)
+            damped_mask = (span > start)*(span < stop)
             O[damped_mask] *= 1 - 0.33
             for x in range(0, 20):
                 i = start - x
