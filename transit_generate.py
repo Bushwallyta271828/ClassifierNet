@@ -37,9 +37,25 @@ def generate():
                         inpt += [maximum, minimum]
             outp += [False]
         else:
-            O_i = normal(1000, 100, (1000,))
-            O_i[O_i < 300] = 300
-            
+            O = normal(1000, 100, (1000,))
+            O[O < 300] = 300
+            center = uniform(0, 1000)
+            spread = uniform(50, 500)
+            start = center - spread
+            stop = center + spread
+            span = arange(0, 1000)
+            damped_mask = (span > start) and (span < stop)
+            O[damped_mask] *= 1 - 0.33
+            for x in range(0, 20):
+                i = start - x
+                if i in span:
+                    O[i] *= 1 - 0.33*(1/pi * arccos((10 - x) / 10)
+                         - (1 / (2*pi)) * (10 - x) * sqrt((20 - x) * x))
+            for x in range(0, 20):
+                i = stop + x
+                if i in span:
+                    O[i] *= 1 - 0.33*(1/pi * arccos((10 - x) / 10)
+                         - (1 / (2*pi)) * (10 - x) * sqrt((20 - x) * x))
             epsilon = normal(0, 200, (1000,))
             epsilon[-epsilon > O] = 0
             I = alpha * (O + epsilon + beta)
@@ -56,3 +72,5 @@ def generate():
                     for i in range(start, next_point, 100):
                         inpt += [maximum, minimum]
             outp += [False]
+            
+print generate()
