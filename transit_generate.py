@@ -6,8 +6,28 @@ from numpy.random import normal
 from numpy.random import random as uniform
 from compartmentalize import compartmentalize
 
+default_generate_step = 100
+
+class Transit:
+    def __init__(self,
+                 generate_step=default_generate_step):
+        """
+        Author: Xander
+        This class stores all
+        the optional keyword
+        arguments for the generate()
+        function.
+        """
+        self.generate_step = generate_step
+        
+    def __str__(self):
+        msg  = "Transit object:\n"
+        msg += "    generate_step = " + str(self.generate_step) + "\n"
+        return msg
+
 def generate():
     """
+    Author: Xander
     This function creates the input, output pairs
     required for the neural net to work. 
     """
