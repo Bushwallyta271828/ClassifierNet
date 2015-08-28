@@ -121,25 +121,25 @@ def generate(transit=default_transit):
             for x in range(0, 2*transit.generate_planet_bordertime):
                 i = start - x
                 if i in span:
-                    O[i] *= 1
-                          - transit.generate_planet_frac * (1/pi
-                                                          * arccos((transit.generate_planet_bordertime
-                                                                  - x) / transit.generate_planet_bordertime)
-                                                          - (1 / (2*pi))
-                                                          * (transit.generate_planet_bordertime - x)
-                                                          * sqrt((2*transit.generate_planet_bordertime
-                                                                - x) * x))
+                    O[i] *= (1
+                           - transit.generate_planet_frac * (1/pi
+                                                           * arccos((transit.generate_planet_bordertime
+                                                                   - x) / transit.generate_planet_bordertime)
+                                                           - (1 / (2*pi))
+                                                           * (transit.generate_planet_bordertime - x)
+                                                           * sqrt((2*transit.generate_planet_bordertime
+                                                                 - x) * x)))
             for x in range(0, 2*transit.generate_planet_bordertime):
                 i = stop + x
                 if i in span:
-                    O[i] *= 1
-                          - transit.generate_planet_frac * (1/pi
-                                                          * arccos((transit.generate_planet_bordertime
-                                                                  - x) / transit.generate_planet_bordertime)
-                                                          - (1 / (2*pi))
-                                                          * (transit.generate_planet_bordertime - x)
-                                                          * sqrt((2*transit.generate_planet_bordertime
-                                                                - x) * x))
+                    O[i] *= (1
+                           - transit.generate_planet_frac * (1/pi
+                                                           * arccos((transit.generate_planet_bordertime
+                                                                   - x) / transit.generate_planet_bordertime)
+                                                           - (1 / (2*pi))
+                                                           * (transit.generate_planet_bordertime - x)
+                                                           * sqrt((2*transit.generate_planet_bordertime
+                                                                 - x) * x)))
             outp += [True]
         epsilon = normal(0,
                          transit.generate_epsilon_std,
