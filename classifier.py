@@ -62,7 +62,7 @@ def execute(nnet, transit=default_transit):
     nnet_output = (array(nnet.activate(inpt)) > 0.5)
     false_positives = 0
     false_negatives = 0
-    for o in xrange(5):
+    for o in xrange(transit.generate_stars):
         if (not output[o]) and nnet_output[o]:
             false_positives += 1
         elif output[o] and (not nnet_output[o]):
@@ -93,14 +93,18 @@ def message(net, size, trainer=default_trainer, transit=default_transit):
     return (msg, 100 * total / size)
 
 
-def train_network(net, best_fraction, trainer=default_trainer, transit=default_transit):
+def train_network(net,
+                  best_fraction,
+                  trainer=default_trainer,
+                  transit=default_transit):
     """
     Author: Xander
     This function performs the common grunt-work of 
-    both build_network() and improve_network()
+    both build_network() and improve_network().
     """
     print "Building dataset..."
-    ds = SupervisedDataSet(50, 5)
+    ds = SupervisedDataSet(2*transit.generate_stars*transit.generate_points,
+                           transit.generate_stars)
     for i in xrange(trainer.interval_count):
         print "Generating exoplanet transits..."
         ds.clear()
@@ -121,43 +125,52 @@ def train_network(net, best_fraction, trainer=default_trainer, transit=default_t
             print msg
         if i != trainer.interval_count - 1:
             print "Creating interval report..."
-            report = message(net, trainer.interval_check, transit=transit)
+            report = message(net,
+                             trainer.interval_check,
+                             trainer=trainer,
+                             transit=transit)
             print report[0][:-1]
             if report[1] > best_fraction:
                 best_fraction = report[1]
                 print "This interval was helpful and will be saved."
                 print "Saving..."
-                NetworkWriter.writeToFile(net, "../network.xml")
+                NetworkWriter.writeToFile(net, "network.xml")
                 print "Writing info..."
-                f = open("../network_info.txt", "w")
+                f = open("network_info.txt", "w")
                 for line in report[0]:
                     f.write(line)
                 f.close()
             else:
                 print "This interval was not helpful and will be discarded."
                 print "Retreiving older version..."
-                net = NetworkReader.readFrom("../network.xml")
+                net = NetworkReader.readFrom("network.xml")
     print "Creating program report..."
-    report = message(net, trainer.check_size, transit=transit)
+    report = message(net,
+                     trainer.check_size,
+                     trainer=trainer,
+                     transit=transit)
     print report[0][:-1]
     if report[1] > best_fraction:
         best_fraction = report[1]
         print "This interval was helpful and will be saved."
         print "Saving..."
-        NetworkWriter.writeToFile(net, "../network.xml")
+        NetworkWriter.writeToFile(net, "network.xml")
         print "Writing info..."
-        f = open("../network_info.txt", "w")
+        f = open("network_info.txt", "w")
         for line in report[0]:
             f.write(line)
         f.close()
     else:
         print "This interval was not helpful and will be discarded."
         print "Retreiving older version..."
-        net = NetworkReader.readFrom("../network.xml")
+        net = NetworkReader.readFrom("network.xml")
         print "Improving older report..."
-        better_report = message(net=net, size=trainer.check_size, transit=transit)
+        better_report = message(net=net,
+                                size=trainer.check_size,
+                                trainer=trainer,
+                                transit=transit)
         print "Writing info..."
-        f = open("../network_info.txt", "w")
+        f = open("network_info.txt", "w")
         for line in better_report[0]:
             f.write(line)
         f.close()
