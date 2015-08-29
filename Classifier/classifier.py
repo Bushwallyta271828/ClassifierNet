@@ -2,13 +2,15 @@
 from __future__ import division
 from pylab import *
 from numpy import *
-from transit_generate import *
-from keywordclasses import *
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.customxml.networkwriter import NetworkWriter
 from pybrain.tools.customxml.networkreader import NetworkReader
+import sys
+sys.path.insert(0, "..")
+from transit_generate import *
+from keywordclasses import *
     
 def execute(nnet, transit=default_transit):
     """

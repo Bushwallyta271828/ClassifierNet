@@ -6,7 +6,7 @@ from numpy.random import normal
 from numpy.random import random as uniform
 import sys
 sys.path.insert(0, "..")
-from compartmentalize import compartmentalize
+from compartmentalize import *
 from keywordclasses import *
 
 def generate(transit=default_transit):
