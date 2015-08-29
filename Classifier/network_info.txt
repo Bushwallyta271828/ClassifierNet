@@ -1,7 +1,7 @@
-40.62% of the test data was correctly classified.
-Of the 7880 incorrect classifications:
-    972 were false positives.
-    6908 were false negatives.
+55.52% of the test data was correctly classified.
+Of the 5521 incorrect classifications:
+    1791 were false positives.
+    3730 were false negatives.
 The trainer object used was:
 Trainer object:
     data_size = 10000
