@@ -3,22 +3,22 @@ from __future__ import division
 from pylab import *
 from numpy import *
 
-default_generate_step = 100
-default_generate_stars = 5
-default_generate_points = 10
-default_generate_alpha_mean = 0.9
-default_generate_alpha_std = 0.1
-default_generate_beta_mean = 500
-default_generate_beta_std = 20
-default_generate_O_mean_mean = 1000
-default_generate_O_mean_std = 100
-default_generate_O_std = 100
-default_generate_O_cutoff = 300
-default_generate_planet_frac = 0.33
+default_generate_step              = 100
+default_generate_stars             = 5
+default_generate_points            = 10
+default_generate_alpha_mean        = 0.9
+default_generate_alpha_std         = 0.1
+default_generate_beta_mean         = 500
+default_generate_beta_std          = 20
+default_generate_O_mean_mean       = 1000
+default_generate_O_mean_std        = 100
+default_generate_O_std             = 100
+default_generate_O_cutoff          = 300
+default_generate_planet_frac       = 0.33
 default_generate_planet_bordertime = 10
-default_generate_epsilon_std = 200
-default_generate_bin_size = 40
-default_generate_dynamic = False
+default_generate_epsilon_std       = 200
+default_generate_bin_size          = 40
+default_generate_dynamic           = False
 
 class Transit:
     def __init__(self,
@@ -110,29 +110,30 @@ class Transit:
         
 default_transit = Transit()
 
-default_data_size = 1000
-default_interval_size = 20
+
+default_data_size      = 1000
+default_interval_size  = 20
 default_interval_check = 1000
 default_interval_count = 10
-default_check_size = 10000
+default_check_size     = 10000
         
 class Trainer:
     def __init__(self,
-                 data_size=default_data_size,
-                 interval_size=default_interval_size,
+                 data_size     =default_data_size,
+                 interval_size =default_interval_size,
                  interval_check=default_interval_check,
                  interval_count=default_interval_count,
-                 check_size=default_check_size):
+                 check_size    =default_check_size):
         """
         Author: Xander
         This class serves the same purpose as Transit,
         just for the train_network() function.
         """
-        self.data_size = data_size
-        self.interval_size = interval_size
+        self.data_size      = data_size
+        self.interval_size  = interval_size
         self.interval_check = interval_check
         self.interval_count = interval_count
-        self.check_size = check_size
+        self.check_size     = check_size
     
     def __str__(self):
         """
@@ -140,11 +141,18 @@ class Trainer:
         This function allows for the printing of Trainer objects.
         """
         desc = "Trainer object:\n"
-        desc += "    data_size = " + str(self.data_size) + "\n"
-        desc += "    interval_size = " + str(self.interval_size) + "\n"
+        desc += "    data_size = "      + str(self.data_size)      + "\n"
+        desc += "    interval_size = "  + str(self.interval_size)  + "\n"
         desc += "    interval_check = " + str(self.interval_check) + "\n"
         desc += "    interval_count = " + str(self.interval_count) + "\n"
-        desc += "    check_size = " + str(self.check_size) + "\n"
+        desc += "    check_size = "     + str(self.check_size)     + "\n"
         return desc
+        
+    def reconstruct(self, lines):
+        self.data_size      = int(lines[1].split(" = ")[1])
+        self.interval_size  = int(lines[2].split(" = ")[1])
+        self.interval_check = int(lines[3].split(" = ")[1])
+        self.interval_count = int(lines[4].split(" = ")[1])
+        self.check_size     = int(lines[5].split(" = ")[1])
         
 default_trainer = Trainer()
