@@ -72,23 +72,41 @@ class Transit:
         of the values in the transit object.
         """
         msg  = "Transit object:\n"
-        msg += "     generate_step              = " + str(self.generate_step) + "\n"
-        msg += "     generate_stars             = " + str(self.generate_stars) + "\n"
-        msg += "     generate_points            = " + str(self.generate_points) + "\n"
-        msg += "     generate_alpha_mean        = " + str(self.generate_alpha_mean) + "\n"
-        msg += "     generate_alpha_std         = " + str(self.generate_alpha_std) + "\n"
-        msg += "     generate_beta_mean         = " + str(self.generate_beta_mean) + "\n"
-        msg += "     generate_beta_std          = " + str(self.generate_beta_std) + "\n"
-        msg += "     generate_O_mean_mean       = " + str(self.generate_O_mean_mean) + "\n"
-        msg += "     generate_O_mean_std        = " + str(self.generate_O_mean_std) + "\n"
-        msg += "     generate_O_std             = " + str(self.generate_O_std) + "\n"
-        msg += "     generate_O_cutoff          = " + str(self.generate_O_cutoff) + "\n"
-        msg += "     generate_planet_frac       = " + str(self.generate_planet_frac) + "\n"
+        msg += "     generate_step              = " + str(self.generate_step)              + "\n"
+        msg += "     generate_stars             = " + str(self.generate_stars)             + "\n"
+        msg += "     generate_points            = " + str(self.generate_points)            + "\n"
+        msg += "     generate_alpha_mean        = " + str(self.generate_alpha_mean)        + "\n"
+        msg += "     generate_alpha_std         = " + str(self.generate_alpha_std)         + "\n"
+        msg += "     generate_beta_mean         = " + str(self.generate_beta_mean)         + "\n"
+        msg += "     generate_beta_std          = " + str(self.generate_beta_std)          + "\n"
+        msg += "     generate_O_mean_mean       = " + str(self.generate_O_mean_mean)       + "\n"
+        msg += "     generate_O_mean_std        = " + str(self.generate_O_mean_std)        + "\n"
+        msg += "     generate_O_std             = " + str(self.generate_O_std)             + "\n"
+        msg += "     generate_O_cutoff          = " + str(self.generate_O_cutoff)          + "\n"
+        msg += "     generate_planet_frac       = " + str(self.generate_planet_frac)       + "\n"
         msg += "     generate_planet_bordertime = " + str(self.generate_planet_bordertime) + "\n"
-        msg += "     generate_epsilon_std       = " + str(self.generate_epsilon_std) + "\n"
-        msg += "     generate_bin_size          = " + str(self.generate_bin_size) + "\n"
-        msg += "     generate_dynamic           = " + str(self.generate_dynamic) + "\n"
+        msg += "     generate_epsilon_std       = " + str(self.generate_epsilon_std)       + "\n"
+        msg += "     generate_bin_size          = " + str(self.generate_bin_size)          + "\n"
+        msg += "     generate_dynamic           = " + str(self.generate_dynamic)           + "\n"
         return msg
+        
+    def reconstruct(self, lines):
+        self.generate_step              = int(  lines[ 1].split(" = ")[1])
+        self.generate_stars             = int(  lines[ 2].split(" = ")[1])
+        self.generate_points            = int(  lines[ 3].split(" = ")[1])
+        self.generate_alpha_mean        = float(lines[ 4].split(" = ")[1])
+        self.generate_alpha_std         = float(lines[ 5].split(" = ")[1])
+        self.generate_beta_mean         = int(  lines[ 6].split(" = ")[1])
+        self.generate_beta_std          = int(  lines[ 7].split(" = ")[1])
+        self.generate_O_mean_mean       = int(  lines[ 8].split(" = ")[1])
+        self.generate_O_mean_std        = int(  lines[ 9].split(" = ")[1])
+        self.generate_O_std             = int(  lines[10].split(" = ")[1])
+        self.generate_O_cutoff          = int(  lines[11].split(" = ")[1])
+        self.generate_planet_frac       = float(lines[12].split(" = ")[1])
+        self.generate_planet_bordertime = int(  lines[13].split(" = ")[1])
+        self.generate_epsilon_std       = int(  lines[14].split(" = ")[1])
+        self.generate_bin_size          = int(  lines[15].split(" = ")[1])
+        self.generate_dynamic           = bool( lines[16].split(" = ")[1])
         
 default_transit = Transit()
 
