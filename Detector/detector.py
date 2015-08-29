@@ -5,7 +5,7 @@ from numpy import *
 from aperture import *
 from pybrain.tools.customxml.networkreader import NetworkReader
 import sys
-sys.path.insert(0, "../Classifier")
+sys.path.insert(0, "..")
 from keywordclasses import *
 from compartmentalize import *
 
