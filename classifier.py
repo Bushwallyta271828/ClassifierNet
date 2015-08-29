@@ -175,7 +175,7 @@ def train_network(net,
             f.write(line)
         f.close()
 
-def build_network(hidden_structure=(256, 128, 64, 32, 16, 8),
+def build_network(hidden_structure=(512, 256, 128, 64, 32, 16, 8),
                   trainer=default_trainer,
                   transit=default_transit):
     """
