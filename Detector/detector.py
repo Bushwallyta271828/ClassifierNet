@@ -17,4 +17,15 @@ def detect(lightcurves):
     All frames must be taken at equal
     intervals of time.
     """
+    message_file = open("../Classifier/network_info.txt")
+    lines = message_file.readlines()
+    message_file.close()
+    trainer_index = lines.index("Trainer object:")
+    transit_index = lines.index("Transit object:")
+    trainer_text = lines[trainer_index: transit_index - 1]
+    transit_text = lines[transit_index:]
+    trainer = Trainer()
+    trainer.reconstruct(trainer_text)
+    transit = Transit()
+    transit.reconstruct(transit_text)
     
