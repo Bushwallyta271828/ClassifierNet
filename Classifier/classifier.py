@@ -3,50 +3,12 @@ from __future__ import division
 from pylab import *
 from numpy import *
 from transit_generate import *
+from keywordclasses import *
 from pybrain.tools.shortcuts import buildNetwork
 from pybrain.datasets import SupervisedDataSet
 from pybrain.supervised.trainers import BackpropTrainer
 from pybrain.tools.customxml.networkwriter import NetworkWriter
 from pybrain.tools.customxml.networkreader import NetworkReader
-
-default_data_size = 1000
-default_interval_size = 20
-default_interval_check = 1000
-default_interval_count = 10
-default_check_size = 10000
-        
-class Trainer:
-    def __init__(self,
-                 data_size=default_data_size,
-                 interval_size=default_interval_size,
-                 interval_check=default_interval_check,
-                 interval_count=default_interval_count,
-                 check_size=default_check_size):
-        """
-        Author: Xander
-        This class serves the same purpose as Transit,
-        just for the train_network() function.
-        """
-        self.data_size = data_size
-        self.interval_size = interval_size
-        self.interval_check = interval_check
-        self.interval_count = interval_count
-        self.check_size = check_size
-    
-    def __str__(self):
-        """
-        Author: Xander
-        This function allows for the printing of Trainer objects.
-        """
-        desc = "Trainer object:\n"
-        desc += "    data_size = " + str(self.data_size) + "\n"
-        desc += "    interval_size = " + str(self.interval_size) + "\n"
-        desc += "    interval_check = " + str(self.interval_check) + "\n"
-        desc += "    interval_count = " + str(self.interval_count) + "\n"
-        desc += "    check_size = " + str(self.check_size) + "\n"
-        return desc
-        
-default_trainer = Trainer()
     
 def execute(nnet, transit=default_transit):
     """
