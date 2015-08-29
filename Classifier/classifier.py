@@ -98,16 +98,16 @@ def train_network(net,
                 best_fraction = report[1]
                 print "This interval was helpful and will be saved."
                 print "Saving..."
-                NetworkWriter.writeToFile(net, "network.xml")
+                NetworkWriter.writeToFile(net, "../network.xml")
                 print "Writing info..."
-                f = open("network_info.txt", "w")
+                f = open("../network_info.txt", "w")
                 for line in report[0]:
                     f.write(line)
                 f.close()
             else:
                 print "This interval was not helpful and will be discarded."
                 print "Retreiving older version..."
-                net = NetworkReader.readFrom("network.xml")
+                net = NetworkReader.readFrom("../network.xml")
     print "Creating program report..."
     report = message(net,
                      trainer.check_size,
@@ -118,23 +118,23 @@ def train_network(net,
         best_fraction = report[1]
         print "This interval was helpful and will be saved."
         print "Saving..."
-        NetworkWriter.writeToFile(net, "network.xml")
+        NetworkWriter.writeToFile(net, "../network.xml")
         print "Writing info..."
-        f = open("network_info.txt", "w")
+        f = open("../network_info.txt", "w")
         for line in report[0]:
             f.write(line)
         f.close()
     else:
         print "This interval was not helpful and will be discarded."
         print "Retreiving older version..."
-        net = NetworkReader.readFrom("network.xml")
+        net = NetworkReader.readFrom("../network.xml")
         print "Improving older report..."
         better_report = message(net=net,
                                 size=trainer.check_size,
                                 trainer=trainer,
                                 transit=transit)
         print "Writing info..."
-        f = open("network_info.txt", "w")
+        f = open("../network_info.txt", "w")
         for line in better_report[0]:
             f.write(line)
         f.close()
@@ -171,9 +171,9 @@ def improve_network(trainer=default_trainer, transit=default_transit):
     is to see if the output is above 0.5.
     """
     print "Retreiving network..."
-    net = NetworkReader.readFrom("network.xml")
+    net = NetworkReader.readFrom("../network.xml")
     print "Retreiving current performance..."
-    f = open("network_info.txt")
+    f = open("../network_info.txt")
     first_line = f.readlines()[0]
     best_fraction = float(first_line.split("%")[0])
     f.close()
