@@ -46,27 +46,16 @@ def generate(transit=default_transit):
             damped_mask = (span > start)*(span < stop)
             O[damped_mask] *= 1 - transit.generate_planet_frac
             for x in range(0, 2*transit.generate_planet_bordertime):
-                i = start + x - 2*transit.generate_planet_bordertime + 1
-                if i in span:
-                    O[i] *= (1
-                           - transit.generate_planet_frac * (1/pi
-                                                           * arccos((transit.generate_planet_bordertime
-                                                                   - x) / transit.generate_planet_bordertime)
-                                                           - (1 / (pi*transit.generate_planet_bordertime)**2)
-                                                           * (transit.generate_planet_bordertime - x)
-                                                           * sqrt((2*transit.generate_planet_bordertime
-                                                                 - x) * x)))
-            for x in range(0, 2*transit.generate_planet_bordertime):
-                i = stop + 2*transit.generate_planet_bordertime - x - 1
-                if i in span:
-                    O[i] *= (1
-                           - transit.generate_planet_frac * (1/pi
-                                                           * arccos((transit.generate_planet_bordertime
-                                                                   - x) / transit.generate_planet_bordertime)
-                                                           - (1 / (pi*transit.generate_planet_bordertime)**2)
-                                                           * (transit.generate_planet_bordertime - x)
-                                                           * sqrt((2*transit.generate_planet_bordertime
-                                                                 - x) * x)))
+                for i in [start + x - 2*transit.generate_planet_bordertime + 1,
+                          stop + 2*transit.generate_planet_bordertime - x - 1]:
+                    if i in span:
+                        O[i] *= (1
+                               - transit.generate_planet_frac
+                               * (1/pi * arccos((transit.generate_planet_bordertime - x)
+                                              / transit.generate_planet_bordertime)
+                                - (1/(pi*transit.generate_planet_bordertime)**2)
+                                * (transit.generate_planet_bordertime - x)
+                                * sqrt((2*transit.generate_planet_bordertime - x) * x)))
             outp += [True]
         epsilon = normal(0,
                          transit.generate_epsilon_std,
