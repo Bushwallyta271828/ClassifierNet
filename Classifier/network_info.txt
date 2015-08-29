@@ -1,14 +1,14 @@
-23.83% of the test data was correctly classified.
-Of the 11834 incorrect classifications:
-    5705 were false positives.
-    6129 were false negatives.
+40.62% of the test data was correctly classified.
+Of the 7880 incorrect classifications:
+    972 were false positives.
+    6908 were false negatives.
 The trainer object used was:
 Trainer object:
-    data_size = 2500
+    data_size = 10000
     interval_size = 20
     interval_check = 10000
     interval_count = 5
-    check_size = 25000
+    check_size = 100000
 The transit object used was:
 Transit object:
      generate_step              = 100
