@@ -28,7 +28,7 @@ def make_file(stop=default_stop):
         g.close()
         line = lines[-1]
         start = int(line.split(":")[0]) + 1
-    except IOError: #dists.txt doesn't exist yet.
+    except: #dists.txt doesn't exist yet.
         start = 2
     f = open("dists.txt", "a")
     for n in range(start, stop + 1):
