@@ -42,10 +42,10 @@ def detect(lightcurves):
             for num, point in enumerate(partitionings[o][:-1]):
                 next_point = partitionings[o][num + 1]
                 if ((next_point - 1 - i) // step > (point - 1 - i) // step
-                and (point - i) <= (points - 1)*steps): #Check
-                    if (point - i) % transit.generate_step > 0:
-                        start = transit.generate_step * ((point - i) // transit.generate_step + 1) + i
-                    else: # (point - i) % transit.generate_step == 0
+                and (point - i) <= (points - 1)*step):
+                    if (point - i) % step > 0:
+                        start = step * ((point - i) // step + 1) + i
+                    else: # (point - i) % step == 0
                         start = point
                     for i in range(start, next_point, transit.generate_step):
                         inpt += [maxs[o][num], mins[o][num]]
