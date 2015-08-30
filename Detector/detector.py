@@ -8,6 +8,16 @@ sys.path.insert(0, "..")
 from compartmentalize import *
 from read_classifier import *
 
+def decode(classifications):
+    """
+    Author: Xander
+    Given a list of the classifications
+    for every allowed starting frame, this
+    function attempts to find which stars
+    have exoplanets.
+    """
+    
+
 def detect(lightcurves):
     """
     Author: Xander
@@ -51,4 +61,4 @@ def detect(lightcurves):
                         inpt += [maxs[o][num], mins[o][num]]
         classification = read_classifier(inpt)
         classifications.append(classification)
-    
+    return decode(classifications)
