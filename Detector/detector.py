@@ -39,5 +39,8 @@ def detect(lightcurves):
                - min(lightcurve[partitionings[i]: partitionings[i + 1]])) for i in range(len(partitionings - 1))]
                                                                           for lightcurve in lightcurves]
     classifications = []
-    for i in range(len(lightcurves[0]) - step * (points - 1) - 1): #Check this!
-        
+    for i in range(len(lightcurves[0]) - step * (points - 1) - 1):
+        inpt = []
+        for o in range(len(lightcurves)):
+            for num, point in enumerate(partitionings[o][:-1]):
+                
