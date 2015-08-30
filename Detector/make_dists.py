@@ -6,18 +6,9 @@ from numpy import *
 default_stop = 500
 default_samples = int(1e6)
 
-def avg_height_find(n, samples=default_samples):
+def avg_dist_find(n, samples=default_samples):
     """
     Author: Xander
-    This method computes zeta(n), previously 
-    known as barmap[n] inside the compartmentalize
-    function.
-    It makes "samples" different arrays of length
-    n, where each element in each array is a normally
-    distributed variable with mean 0 and standard deviation
-    1. It computes the average of max(array) - min(array)
-    for each array in our set of "samples" arrays.
-    It heavily relies on numpy.
     """
     data = normal(0, 1, (n, samples))
     return average(amax(data, axis=0)
@@ -26,18 +17,18 @@ def avg_height_find(n, samples=default_samples):
 def make_file(stop=default_stop):
     """
     Author: Xander
-    This method calls avg_height_find(...) for every n
+    This method calls avg_dist_find(...) for every n
     in the range [start, stop], including stop, and writes
-    the output to heights.txt in the format:
-        n:zeta(n)
+    the output to dists.txt in the format:
+        n:avg_dist_find(n)
     """
     try:
-        g = open("heights.txt")
+        g = open("dists.txt")
         lines = g.readlines()
         g.close()
         line = lines[-1]
         start = int(line.split(":")[0]) + 1
-    except IOError: #heights.txt doesn't exist yet.
+    except IOError: #dists.txt doesn't exist yet.
         start = 2
     f = open("heights.txt", "a")
     for n in range(start, stop + 1):
