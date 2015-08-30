@@ -45,7 +45,7 @@ def detect(lightcurves):
                 and (point - i) <= (points - 1)*steps): #Check
                     if (point - i) % transit.generate_step > 0:
                         start = transit.generate_step * ((point - i) // transit.generate_step + 1) + i
-                    else:  # (point - i) % transit.generate_step == 0
+                    else: # (point - i) % transit.generate_step == 0
                         start = point
                     for i in range(start, next_point, transit.generate_step):
                         inpt += [maxs[o][num], mins[o][num]]
