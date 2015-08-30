@@ -8,7 +8,7 @@ sys.path.insert(0, "..")
 from compartmentalize import *
 from read_classifier import *
 
-def decode(classifications):
+def decode(classifications, max_length, max_pval):
     """
     Author: Xander
     Given a list of the classifications
@@ -16,7 +16,40 @@ def decode(classifications):
     function attempts to find which stars
     have exoplanets.
     """
-    
+    l = len(lightcurve)
+    max_length = min(max_length, l)
+    f = open("heights.txt")
+    lines = f.readlines()
+    f.close()
+    barmap = [None, None]
+    for line in lines:
+        height = float(line[:-1].split(":")[1])
+        barmap.append(height)
+    slope = (barmap[-1] - barmap[-21]) / 20
+    while max_length > len(barmap) - 1:
+        barmap.append(barmap[-1] + slope)
+    min_size = max(2, int(2 / max_pval))
+    memovalues = [None]*l + [([l], 0)]
+    memovalues[l - min_size + 1:-1] = [([], float("inf"))]*(min_size - 1)
+    i = l - min_size
+    while i >= 0:
+        minimum = min(lightcurve[i:i + min_size])
+        maximum = max(lightcurve[i:i + min_size])
+        best_badness = float("inf")
+        best_partitioning = []
+        for j in range(i + min_size, min(l + 1, i + max_length + 1)):
+            new_badness = (j - i) * (maximum - minimum) / barmap[j - i]
+            found_partitioning, found_badness = memovalues[j]
+            if new_badness + found_badness < best_badness:
+                best_badness = new_badness + found_badness
+                best_partitioning = [i] + found_partitioning
+            if j < l and lightcurve[j] > maximum:
+                maximum = lightcurve[j]
+            elif j < l and lightcurve[j] < minimum:
+                minimum = lightcurve[j]
+        memovalues[i] = (best_partitioning, best_badness)
+        i -= 1
+    return memovalues[0]
 
 def detect(lightcurves):
     """
