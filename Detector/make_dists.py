@@ -30,11 +30,11 @@ def make_file(stop=default_stop):
         start = int(line.split(":")[0]) + 1
     except IOError: #dists.txt doesn't exist yet.
         start = 2
-    f = open("heights.txt", "a")
+    f = open("dists.txt", "a")
     for n in range(start, stop + 1):
-        f.write(str(n) + ":" + str(avg_height_find(n)) + "\n")
+        f.write(str(n) + ":" + str(avg_dist_find(n)) + "\n")
         print n
     f.close()
     
 if __name__=="__main__":
-    make_file(stop=500)
+    make_file(stop=100)
