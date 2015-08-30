@@ -22,14 +22,11 @@ def detect(lightcurves):
     message_file = open("detect_info.txt")
     lines = message_file.readlines()
     message_file.close()
-    transit_index = lines.index("Transit object:")
-    transit_text = lines[transit_index:]
-    transit = Transit()
-    transit.reconstruct(transit_text)
-    points = transit.generate_points
-    step = transit.generate_step
-    bin_size = transit.generate_bin_size
-    dynamic = transit.generate_dynamic
+    stars = int(lines[0][:-1].split(" ")[1])
+    points = int(lines[1][:-1].split(" ")[1])
+    step = int(lines[2][:-1].split(" ")[1])
+    bin_size = int(lines[3][:-1].split(" ")[1])
+    dynamic = int(lines[4][:-1].split(" ")[1])
     if dynamic:
         partitionings = [compartmentalize(lightcurve, max_length=step)[0] for lightcurve in lightcurves]
     else:
