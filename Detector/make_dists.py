@@ -12,7 +12,7 @@ def avg_dist_find(n, samples=default_samples):
     sum_max_dists = 0
     for sample in range(samples):
         max_dist = 0
-        has_exoplanets = [[random(), random(), random(), random(), random()] for i in range(n)]
+        has_exoplanets = [[random()>0.5, random()>0.5, random()>0.5, random()>0.5, random()>0.5] for i in range(n)]
         for i in range(n):
             for j in range(i):
                 diff = sum([has_exoplanets[i][k] != has_exoplanets[j][k] for k in range(5)])
