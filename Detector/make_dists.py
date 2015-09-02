@@ -1,19 +1,26 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
-from pylab import *
-from numpy import *
+from random import random
 
 default_stop = 500
-default_samples = int(1e6)
+default_samples = int(1e3)
 
 def avg_dist_find(n, samples=default_samples):
     """
     Author: Xander
     """
-    data = normal(0, 1, (n, samples))
-    return average(amax(data, axis=0)
-                 - amin(data, axis=0))
-    
+    sum_max_dists = 0
+    for sample in range(samples):
+        max_dist = 0
+        has_exoplanets = [[random(), random(), random(), random(), random()] for i in range(n)]
+        for i in range(n):
+            for j in range(i):
+                diff = sum([has_exoplanets[i][k] != has_exoplanets[j][k] for k in range(5)])
+                if diff > max_dist:
+                    max_dist = diff
+        sum_max_dists += max_dist
+    return sum_max_dists / samples        
+
 def make_file(stop=default_stop):
     """
     Author: Xander
