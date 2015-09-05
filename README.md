@@ -18,4 +18,16 @@ The main points of the algorithm are:
     Computing phase: detect the exoplanets in the data.
         For every position until the end:
             run the master classifier on the data from that point to some fixed distance ahead
-        
+        (Vaguely, partition the data up into "similarly classified" blocks)
+        For every block:
+            If there are any exoplanets found, remember the stars they belong to.
+            
+The parts of this diagram that have "(Vaguely, ...)" are incomplete.  
+The in-code documentation is currently slim, as the code is changing faster than I have time to correct the descriptions that go along with it. Eventually, I plan to have documentation on par with the quality provided in v1.0 of the program. Still, I ought to mention the theoretical functions of each subdirectory:
+
+    BuildNets - Perform the instructions under "For a good number of different neural networks:"
+    Common - A collection of scripts common to more than one subdirectory.
+    Detect - Perform the computations under the computing phase.
+    UseNets - create and use the "master classifier"
+    
+A more detailed description will be present in the documentation. This will get better toward the finished product / v2.0. 
