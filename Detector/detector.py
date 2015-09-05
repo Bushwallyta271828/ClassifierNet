@@ -8,6 +8,9 @@ sys.path.insert(0, "..")
 from compartmentalize import *
 from read_classifier import *
 
+def minmax(classslice):
+    
+
 def decode(classifications, max_length, max_pval):
     """
     Author: Xander
@@ -16,9 +19,9 @@ def decode(classifications, max_length, max_pval):
     function attempts to find which stars
     have exoplanets.
     """
-    l = len(lightcurve)
+    l = len(classifications)
     max_length = min(max_length, l)
-    f = open("heights.txt")
+    f = open("dists.txt")
     lines = f.readlines()
     f.close()
     barmap = [None, None]
