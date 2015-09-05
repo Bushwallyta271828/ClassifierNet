@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[twocolumn]{article}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -10,7 +10,7 @@
 \author{Alexander Heckett}
 \maketitle
 \begin{abstract}
-This paper provides a relatively in-depth look at the algorithm used behind my neural net classifier. It does not cover the background corresponding to, the progression of ideas that led to, or any results coming from the program implemented. 
+\indent \indent This paper provides a relatively in-depth look at the algorithm used behind my neural net classifier. It does not cover the background corresponding to, the progression of ideas that led to, or any results coming from the program implemented. 
 \end{abstract}
 \tableofcontents
 \section{The pre-computation}
@@ -21,10 +21,17 @@ This paper provides a relatively in-depth look at the algorithm used behind my n
 \subsubsection{BrownBoost}
 \subsubsection{LogitBoost}
 \section{Per-dataset computation}
-\subsection{Evaulation and Error}
+\subsection{Evaluation and Error}
 \indent \indent Having constructed our monster classifier, we now brace to use it. We have already laid out the general principle behind how it is to be used. For some starting position, look forward some fixed number of points into the future, where each point is separated by a constant number of frames, find the error bar at these points, and pass them into the neural net. We will thus generate a sequence of classifications, starting at every frame in the dataset except for the small slice of the set which would require looking at frames past the end.
 \newline
-\indent 
+\indent It is now our task to turn these individual classifications into one final conclusion. However, this is not trivial. In an ideal world in which the master classifier would produce zero error, we would simply look at every classification, and if a star comes up with an exoplanet, record our identification. However, due to the many times we call our classifier, many misclassifications will occur. With this method, practically every star will come through as having an exoplanet, since at least one frame will be incorrectly identified as a false positive. Thus, we must contrive some algorithm to weed out the error.
+\newline
+\indent Before proceeding to eliminate the error, we must define some expectation of how our error is going to behave. This model follows from two very basic propositions which I am now going to take as axioms:
+\begin{enumerate}
+\item The likelihood of one star to be misclassified is not dependent on another star's likihood.
+\item The stars are all treated the same way by the master classifier.
+\end{enumerate}
+These two propositions form the basis of my theory. Due to these two axioms, the probability that a truly exoplanet free star comes out incorrectly positive is some constant number - say $ \alpha $. The probability that a star with an exoplanet comes out incorrectly negative is some other constant number - say $ \beta $. 
 \subsection{The Decoder}
 \subsection{Finding Epsilon}
 \indent \indent Up until now, I have assumed we somehow knew $ \epsilon $. However, there is no obvious way to predict this from theory. We thus must resort to using the dataset to find the most probable value of it. This is similar in concept to finding $ \sigma $ in my Dynamic Binning algorithm, just harder to implement. 
