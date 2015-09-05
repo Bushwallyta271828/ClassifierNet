@@ -1,0 +1,11 @@
+\contentsline {section}{\numberline {1}The pre-computation}{1}
+\contentsline {subsection}{\numberline {1.1}The Neural Net}{1}
+\contentsline {subsubsection}{\numberline {1.1.1}Simulated Data}{1}
+\contentsline {subsubsection}{\numberline {1.1.2}Training Scheme}{1}
+\contentsline {subsection}{\numberline {1.2}Boosting}{1}
+\contentsline {subsubsection}{\numberline {1.2.1}BrownBoost}{1}
+\contentsline {subsubsection}{\numberline {1.2.2}LogitBoost}{1}
+\contentsline {section}{\numberline {2}Per-dataset computation}{1}
+\contentsline {subsection}{\numberline {2.1}Evaulation and Error}{1}
+\contentsline {subsection}{\numberline {2.2}The Decoder}{2}
+\contentsline {subsection}{\numberline {2.3}Finding Epsilon}{2}

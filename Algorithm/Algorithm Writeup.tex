@@ -10,10 +10,24 @@
 \author{Alexander Heckett}
 \maketitle
 \begin{abstract}
-This paper provides a relatively in-depth look at the algorithm used behind my neural net classifier. It does not cover the background corresponding to, the history of, or any results about the program implemented. 
+This paper provides a relatively in-depth look at the algorithm used behind my neural net classifier. It does not cover the background corresponding to, the progression of ideas that led to, or any results coming from the program implemented. 
 \end{abstract}
 \tableofcontents
 \section{The pre-computation}
 \subsection{The Neural Net}
-\subsection{This is a subsection!}
+\subsubsection{Simulated Data}
+\subsubsection{Training Scheme}
+\subsection{Boosting}
+\subsubsection{BrownBoost}
+\subsubsection{LogitBoost}
+\section{Per-dataset computation}
+\subsection{Evaulation and Error}
+\indent \indent Having constructed our monster classifier, we now brace to use it. We have already laid out the general principle behind how it is to be used. For some starting position, look forward some fixed number of points into the future, where each point is separated by a constant number of frames, find the error bar at these points, and pass them into the neural net. We will thus generate a sequence of classifications, starting at every frame in the dataset except for the small slice of the set which would require looking at frames past the end.
+\newline
+\indent 
+\subsection{The Decoder}
+\subsection{Finding Epsilon}
+\indent \indent Up until now, I have assumed we somehow knew $ \epsilon $. However, there is no obvious way to predict this from theory. We thus must resort to using the dataset to find the most probable value of it. This is similar in concept to finding $ \sigma $ in my Dynamic Binning algorithm, just harder to implement. 
+\newline
+\indent The program has been tasked with the problem of, given the classifications in an interval, find the best $ \epsilon $ to work with. Let's start by working this problem in reverse: if we knew $ \epsilon $, what would be the distribution of classifications? At this point, we must define some more terminology before we can proceed. 
 \end{document}
