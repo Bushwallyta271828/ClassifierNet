@@ -2,14 +2,11 @@
 from __future__ import division
 from pylab import *
 from numpy import *
-from pybrain.tools.customxml.networkreader import NetworkReader
 import sys
-sys.path.insert(0, "..")
+sys.path.insert(0, "../Common")
+sys.path.insert(0, "../UseNets")
 from compartmentalize import *
 from read_classifier import *
-
-def minmax(classslice):
-    
 
 def decode(classifications, max_length, max_pval):
     """
@@ -21,23 +18,12 @@ def decode(classifications, max_length, max_pval):
     """
     l = len(classifications)
     max_length = min(max_length, l)
-    f = open("dists.txt")
-    lines = f.readlines()
-    f.close()
-    barmap = [None, None]
-    for line in lines:
-        height = float(line[:-1].split(":")[1])
-        barmap.append(height)
-    slope = (barmap[-1] - barmap[-21]) / 20
-    while max_length > len(barmap) - 1:
-        barmap.append(barmap[-1] + slope)
     min_size = max(2, int(2 / max_pval))
     memovalues = [None]*l + [([l], 0)]
     memovalues[l - min_size + 1:-1] = [([], float("inf"))]*(min_size - 1)
     i = l - min_size
     while i >= 0:
-        minimum = min(lightcurve[i:i + min_size])
-        maximum = max(lightcurve[i:i + min_size])
+        probabilities = {} #Incomplete!
         best_badness = float("inf")
         best_partitioning = []
         for j in range(i + min_size, min(l + 1, i + max_length + 1)):
