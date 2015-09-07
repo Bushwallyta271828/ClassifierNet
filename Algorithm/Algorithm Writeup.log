@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.1)  5 SEP 2015 18:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.9.1)  7 SEP 2015 12:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -8,8 +8,8 @@ LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 4 languages loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
-File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -219,32 +219,67 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout3 = `"Algorithm Writeup.toc"'.
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 23--23
+[]\OT1/cmr/bx/n/17.28 Per-dataset com-pu-ta-
+ []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-] [2
+]
+LaTeX Font Info:    Try loading font information for U+euf on input line 43.
 
-] (./Algorithm Writeup.aux) ) 
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/ueuf.fd
+File: ueuf.fd 2013/01/14 v3.01 Euler Fraktur
+)
+Underfull \hbox (badness 1874) in paragraph at lines 43--45
+\OT1/cmr/m/n/12 to be the set of all pos-si-ble iden-ti-fi-ca-
+ []
+
+
+Underfull \hbox (badness 3989) in paragraph at lines 43--45
+\OT1/cmr/m/n/12 tions when track-ing $\OML/cmm/m/it/12 N$ \OT1/cmr/m/n/12 stars
+. I am
+ []
+
+
+Underfull \hbox (badness 4060) in paragraph at lines 43--45
+\OT1/cmr/m/n/12 ex-am-in-ing some block of clas-si-fi-ca-tions,
+ []
+
+[2]
+
+Package amsfonts Warning: Obsolete command \frak; \mathfrak should be used inst
+ead on input line 53.
+
+[3] (./Algorithm Writeup.aux) ) 
 Here is how much of TeX's memory you used:
- 2402 strings out of 494985
- 31656 string characters out of 6180357
- 92159 words of memory out of 5000000
- 5586 multiletter control sequences out of 15000+600000
- 11503 words of font info for 45 fonts, out of 8000000 for 9000
+ 2416 strings out of 494985
+ 31959 string characters out of 6180357
+ 92194 words of memory out of 5000000
+ 5597 multiletter control sequences out of 15000+600000
+ 13458 words of font info for 52 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 37i,7n,26p,652b,223s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on "Algorithm Writeup.pdf" (2 pages, 79552 bytes).
+ 37i,10n,26p,1031b,216s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi
+6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><
+/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/tex
+live/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/euler/eufm10.pfb>
+Output written on "Algorithm Writeup.pdf" (3 pages, 122705 bytes).
 PDF statistics:
- 35 PDF objects out of 1000 (max. 8388607)
- 24 compressed objects within 1 object stream
+ 62 PDF objects out of 1000 (max. 8388607)
+ 44 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
